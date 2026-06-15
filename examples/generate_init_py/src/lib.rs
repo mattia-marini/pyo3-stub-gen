@@ -5,7 +5,7 @@ use pyo3_stub_gen::{
 
 // Example classes and functions for generate-init-py demonstration
 #[gen_stub_pyclass]
-#[pyclass(module = "generate_init_py._core")]
+#[pyclass(from_py_object, module = "generate_init_py._core")]
 #[derive(Debug, Clone)]
 pub struct A {
     x: usize,
@@ -33,7 +33,7 @@ pub fn wrap_opt_a(x: Option<A>) -> Option<A> {
 
 // Class without explicit module specification
 #[gen_stub_pyclass]
-#[pyclass(module = "generate_init_py._core")]
+#[pyclass(skip_from_py_object, module = "generate_init_py._core")]
 #[derive(Debug, Clone)]
 struct B {
     x: usize,
@@ -41,7 +41,7 @@ struct B {
 
 // Class without explicit module specification
 #[gen_stub_pyclass_enum]
-#[pyclass(module = "generate_init_py._core", frozen, eq)]
+#[pyclass(from_py_object, module = "generate_init_py._core", frozen, eq)]
 #[derive(Debug, Clone, PartialEq, Eq)]
 /// This is the docstring for enum C.
 enum C {

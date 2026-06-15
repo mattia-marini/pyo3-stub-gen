@@ -68,7 +68,7 @@
 //! Code generation will take three steps:
 //!
 //! 1. Parse input [proc_macro2::TokenStream] into corresponding syntax tree component in [syn],
-//!    - e.g. [ItemStruct] for `#[pyclass]`, [ItemImpl] for `#[pymethods]`, and so on.
+//!    - e.g. [ItemStruct] for `#[pyclass(from_py_object)]`, [ItemImpl] for `#[pymethods]`, and so on.
 //! 2. Convert syntax tree components into `*Info` struct using [TryInto].
 //!    - e.g. [PyClassInfo] is converted from [ItemStruct], [PyMethodsInfo] is converted from [ItemImpl], and so on.
 //! 3. Generate token streams using implementation of [quote::ToTokens] trait for `*Info` structs.

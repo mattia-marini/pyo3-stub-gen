@@ -22,7 +22,7 @@ fn public_function() {}
 
 // 4. Test: Public class that should be in __all__ by default
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 struct PublicClass {}
 
 // 5. Test: Public function that will be explicitly excluded from __all__

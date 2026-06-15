@@ -109,7 +109,7 @@ pub fn fmt_py_obj<T: for<'py> pyo3::IntoPyObjectExt<'py>>(obj: T) -> String {
 #[cfg(all(test, feature = "infer_signature"))]
 mod test {
     use super::*;
-    #[pyclass]
+    #[pyclass(skip_from_py_object)]
     #[derive(Debug)]
     struct A {}
     #[test]
@@ -181,7 +181,7 @@ mod test {
     }
     #[test]
     fn test_fmt_enum() {
-        #[pyclass(eq, eq_int)]
+        #[pyclass(from_py_object, eq, eq_int)]
         #[derive(Debug, Clone, PartialEq, Eq, Hash)]
         pub enum Number {
             Float,

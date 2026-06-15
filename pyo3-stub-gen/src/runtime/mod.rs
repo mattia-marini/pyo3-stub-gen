@@ -34,13 +34,13 @@ use ::pyo3::types::PyModule;
 ///
 /// # Implementing for Custom Types
 ///
-/// For `#[pyclass]` types, use `py.get_type::<Self>()`:
+/// For `#[pyclass(from_py_object)]` types, use `py.get_type::<Self>()`:
 ///
 /// ```rust,ignore
 /// use pyo3::prelude::*;
 /// use pyo3_stub_gen::runtime::PyRuntimeType;
 ///
-/// #[pyclass]
+/// #[pyclass(from_py_object)]
 /// struct MyClass;
 ///
 /// impl PyRuntimeType for MyClass {
@@ -77,7 +77,7 @@ pub trait PyRuntimeType {
 /// use pyo3::prelude::*;
 /// use pyo3_stub_gen::impl_py_runtime_type;
 ///
-/// #[pyclass]
+/// #[pyclass(from_py_object)]
 /// struct MyClass;
 ///
 /// impl_py_runtime_type!(MyClass);
@@ -268,7 +268,7 @@ mod tests {
         });
     }
 
-    // Test custom #[pyclass] with union_type
+    // Test custom #[pyclass(from_py_object)] with union_type
     #[::pyo3::pyclass]
     struct TestCustomClass {
         #[allow(dead_code)]
@@ -299,7 +299,7 @@ mod tests {
         });
     }
 
-    // Test type_alias! macro with custom #[pyclass]
+    // Test type_alias! macro with custom #[pyclass(from_py_object)]
     #[::pyo3::pyclass]
     struct MyCustomType;
 

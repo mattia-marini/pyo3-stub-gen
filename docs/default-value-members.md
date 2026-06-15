@@ -10,7 +10,7 @@ When defining Python classes in Rust using PyO3, class attributes often have def
 
 ```rust
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 struct Config {
     #[pyo3(get, set)]
     #[gen_stub(default = Config::default().timeout)]
@@ -166,7 +166,7 @@ class MyClass:
 **Rust code**:
 ```rust
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object, from_py_object)]
 struct MyClass {
     #[pyo3(get, set)]
     #[gen_stub(default = MyClass::default().value)]
@@ -410,7 +410,7 @@ Similar to getters, setters also embed default values in their docstrings.
 
 ```rust
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object, from_py_object)]
 struct A {
     #[gen_stub(default = A::default().x)]
     #[pyo3(get, set)]
@@ -490,7 +490,7 @@ class A:
 
 ```rust
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object, from_py_object)]
 struct Config {
     #[pyo3(get, set)]
     #[gen_stub(default = vec!["localhost".to_string()])]
@@ -576,7 +576,7 @@ For fields with only `#[pyo3(get)]`:
 
 ```rust
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object, from_py_object)]
 struct MyClass {
     #[pyo3(get)]
     #[gen_stub(default = 42)]
@@ -602,7 +602,7 @@ For fields with only `#[pyo3(set)]`:
 
 ```rust
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object, from_py_object)]
 struct MyClass {
     #[pyo3(set)]
     #[gen_stub(default = "secret")]

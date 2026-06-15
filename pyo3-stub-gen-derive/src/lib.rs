@@ -2,7 +2,7 @@ mod gen_stub;
 
 use proc_macro::TokenStream;
 
-/// Embed metadata for Python stub file generation for `#[pyclass]` macro
+/// Embed metadata for Python stub file generation for `#[pyclass(from_py_object)]` macro
 ///
 /// ```
 /// #[pyo3_stub_gen_derive::gen_stub_pyclass]
@@ -25,7 +25,7 @@ pub fn gen_stub_pyclass(attr: TokenStream, item: TokenStream) -> TokenStream {
         .into()
 }
 
-/// Embed metadata for Python stub file generation for `#[pyclass]` macro with enum
+/// Embed metadata for Python stub file generation for `#[pyclass(from_py_object)]` macro with enum
 ///
 /// ```
 /// #[pyo3_stub_gen_derive::gen_stub_pyclass_enum]
@@ -45,7 +45,7 @@ pub fn gen_stub_pyclass_enum(attr: TokenStream, item: TokenStream) -> TokenStrea
         .into()
 }
 
-/// Embed metadata for Python stub file generation for `#[pyclass]` macro with a complex enum
+/// Embed metadata for Python stub file generation for `#[pyclass(from_py_object)]` macro with a complex enum
 ///
 /// ```
 /// #[pyo3_stub_gen_derive::gen_stub_pyclass_complex_enum]

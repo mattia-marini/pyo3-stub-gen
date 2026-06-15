@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 //! Test cases for module attribute priority:
 //! Priority order: inline > pyo3 > default
 //!
@@ -13,7 +14,7 @@ use pyo3_stub_gen::derive::*;
 
 /// Test 1: No module attribute → uses default
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(from_py_object)]
 #[derive(Debug, Clone)]
 pub struct NoModuleAttr {
     pub x: usize,
@@ -21,7 +22,7 @@ pub struct NoModuleAttr {
 
 /// Test 2: Only pyo3 module → uses pyo3 module
 #[gen_stub_pyclass]
-#[pyclass(module = "mixed.main_mod.test.from_pyo3")]
+#[pyclass(from_py_object, module = "mixed.main_mod.test.from_pyo3")]
 #[derive(Debug, Clone)]
 pub struct OnlyPyo3Module {
     pub x: usize,
@@ -29,7 +30,7 @@ pub struct OnlyPyo3Module {
 
 /// Test 3: Inline parameter overrides pyo3
 #[gen_stub_pyclass(module = "mixed.main_mod.test.from_inline")]
-#[pyclass(module = "mixed.main_mod.test.from_pyo3")]
+#[pyclass(from_py_object, module = "mixed.main_mod.test.from_pyo3")]
 #[derive(Debug, Clone)]
 pub struct InlineOverridesPyo3Class {
     pub x: usize,
@@ -37,7 +38,7 @@ pub struct InlineOverridesPyo3Class {
 
 /// Test 4: Only inline (no pyo3)
 #[gen_stub_pyclass(module = "mixed.main_mod.test.from_inline")]
-#[pyclass]
+#[pyclass(from_py_object)]
 #[derive(Debug, Clone)]
 pub struct OnlyInlineClass {
     pub x: usize,
@@ -69,7 +70,7 @@ pub fn only_inline_fn() -> usize {
 
 /// Test 1: Only pyo3 module
 #[gen_stub_pyclass_enum]
-#[pyclass(module = "mixed.main_mod.test.from_pyo3")]
+#[pyclass(from_py_object, module = "mixed.main_mod.test.from_pyo3")]
 #[derive(Debug, Clone)]
 pub enum OnlyPyo3Enum {
     A,
@@ -78,7 +79,7 @@ pub enum OnlyPyo3Enum {
 
 /// Test 2: Inline overrides pyo3
 #[gen_stub_pyclass_enum(module = "mixed.main_mod.test.from_inline")]
-#[pyclass(module = "mixed.main_mod.test.from_pyo3")]
+#[pyclass(from_py_object, module = "mixed.main_mod.test.from_pyo3")]
 #[derive(Debug, Clone)]
 pub enum InlineOverridesPyo3Enum {
     A,
@@ -87,7 +88,7 @@ pub enum InlineOverridesPyo3Enum {
 
 /// Test 3: Only inline (no pyo3)
 #[gen_stub_pyclass_enum(module = "mixed.main_mod.test.from_inline")]
-#[pyclass]
+#[pyclass(from_py_object)]
 #[derive(Debug, Clone)]
 pub enum OnlyInlineEnum {
     A,

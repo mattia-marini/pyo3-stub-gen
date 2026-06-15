@@ -5,7 +5,7 @@ use pyo3_stub_gen::derive::*;
 
 /// A class to test f64 special values
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 pub struct FloatValues;
 
 #[gen_stub_pymethods]

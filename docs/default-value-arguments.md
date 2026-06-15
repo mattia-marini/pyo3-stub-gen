@@ -701,7 +701,7 @@ def process_items(items: list[int] = [1, 2, 3]) -> list[int]: ...
 **Rust-based**:
 ```rust
 #[gen_stub_pyclass_enum]
-#[pyclass(eq, eq_int)]
+#[pyclass(from_py_object, eq, eq_int)]
 #[derive(Clone, PartialEq)]
 pub enum Number {
     Float,

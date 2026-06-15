@@ -278,7 +278,9 @@ impl<Key, Value, State> PyRuntimeType for HashMap<Key, Value, State> {
 }
 
 #[cfg(feature = "hashbrown")]
-impl<Key: PyStubType, Value: PyStubType, State> PyStubType for hashbrown::HashMap<Key, Value, State> {
+impl<Key: PyStubType, Value: PyStubType, State> PyStubType
+    for hashbrown::HashMap<Key, Value, State>
+{
     impl_map_stub_type!();
 }
 #[cfg(feature = "hashbrown")]

@@ -173,7 +173,7 @@ Use `typing.Literal` to define return types based on literal parameter values:
 #[pyfunction]
 #[pyo3(signature = (xs, /, *, tuple_out))]
 pub fn as_tuple(xs: Vec<i32>, tuple_out: bool) -> PyResult<PyObject> {
-    Python::with_gil(|py| {
+    Python::attach(|py| {
         if tuple_out {
             Ok(PyTuple::new(py, xs.iter())?.into_py_any(py)?)
         } else {
@@ -206,7 +206,7 @@ use pyo3::prelude::*;
 use pyo3_stub_gen::{derive::*, inventory::submit};
 
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 pub struct ManualSubmit {}
 
 // Manually submit method info for the class
@@ -288,7 +288,7 @@ use pyo3_stub_gen::{derive::*, inventory::submit};
 
 /// Demonstrates manual submission of class methods using the `submit!` macro
 #[gen_stub_pyclass] // Use proc-macro for submitting class info
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 pub struct ManualSubmit {}
 
 // No #[gen_stub_pymethods]
@@ -368,7 +368,7 @@ use pyo3::prelude::*;
 use pyo3_stub_gen::{derive::*, inventory::submit};
 
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 pub struct PartialManualSubmit {}
 
 // Manually submit method info for the `PartialManualSubmit` class.

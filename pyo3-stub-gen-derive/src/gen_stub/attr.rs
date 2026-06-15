@@ -79,7 +79,7 @@ pub fn extract_deprecated(attrs: &[Attribute]) -> Option<DeprecatedInfo> {
     None
 }
 
-/// `#[pyo3(...)]` style attributes appear in `#[pyclass]` and `#[pymethods]` proc-macros
+/// `#[pyo3(...)]` style attributes appear in `#[pyclass(from_py_object)]` and `#[pymethods]` proc-macros
 ///
 /// As the reference of PyO3 says:
 ///
@@ -88,7 +88,7 @@ pub fn extract_deprecated(attrs: &[Attribute]) -> Option<DeprecatedInfo> {
 /// > or as one or more accompanying `#[pyo3(...)]` annotations,
 ///
 /// `#[pyclass(name = "MyClass", module = "MyModule")]` will be decomposed into
-/// `#[pyclass]` + `#[pyo3(name = "MyClass")]` + `#[pyo3(module = "MyModule")]`,
+/// `#[pyclass(from_py_object)]` + `#[pyo3(name = "MyClass")]` + `#[pyo3(module = "MyModule")]`,
 /// i.e. two `Attr`s will be created for this case.
 ///
 #[derive(Debug, Clone, PartialEq)]
@@ -667,7 +667,7 @@ mod test {
             }
             "#,
         )?;
-        // `#[pyclass]` part
+        // `#[pyclass(from_py_object)]` part
         let attrs = parse_pyo3_attrs(&item.attrs)?;
         assert_eq!(
             attrs,
@@ -699,7 +699,7 @@ mod test {
             }
             "#,
         )?;
-        // `#[pyclass]` part
+        // `#[pyclass(from_py_object)]` part
         let attrs = parse_pyo3_attr(&item.attrs[0])?;
         assert_eq!(
             attrs,

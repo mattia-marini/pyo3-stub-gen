@@ -537,11 +537,11 @@ impl ops::BitOr for TypeInfo {
 /// use pyo3_stub_gen::{impl_stub_type, derive::*};
 ///
 /// #[gen_stub_pyclass]
-/// #[pyclass]
+/// #[pyclass(skip_from_py_object)]
 /// struct A;
 ///
 /// #[gen_stub_pyclass]
-/// #[pyclass]
+/// #[pyclass(skip_from_py_object)]
 /// struct B;
 ///
 /// enum E {

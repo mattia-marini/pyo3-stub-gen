@@ -217,7 +217,7 @@ impl A {
 /// - getter should produce `-> list[int]`
 /// - setter should produce `value: Sequence[int]`
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 struct GetterSetterTypeTest {
     values: Vec<i32>,
 }
@@ -288,9 +288,18 @@ fn print_c(c: Option<C>) {
         println!("None");
     }
 }
-impl FromPyObject<'_> for C {
-    fn extract_bound(ob: &Bound<'_, PyAny>) -> PyResult<Self> {
-        Ok(C { x: ob.extract()? })
+
+// impl<'py> FromPyObject<'_, 'py> for ClassACallback {
+//     type Error = PyErr;
+//     fn extract(obj: Borrowed<'_, 'py, PyAny>) -> std::result::Result<Self, Self::Error> {
+//         Ok(ClassACallback(obj.to_owned().unbind()))
+//     }
+// }
+
+impl<'py> FromPyObject<'_, 'py> for C {
+    type Error = PyErr;
+    fn extract(obj: Borrowed<'_, 'py, PyAny>) -> std::result::Result<Self, Self::Error> {
+        Ok(C { x: obj.extract()? })
     }
 }
 impl pyo3_stub_gen::PyStubType for C {
@@ -350,7 +359,7 @@ pub enum NumberRenameAll {
 }
 
 #[gen_stub_pyclass_complex_enum]
-#[pyclass]
+#[pyclass(from_py_object)]
 #[pyo3(rename_all = "UPPERCASE")]
 #[derive(Debug, Clone)]
 pub enum NumberComplex {
@@ -367,7 +376,7 @@ pub enum NumberComplex {
 /// Example from PyO3 documentation for complex enum
 /// https://pyo3.rs/v0.25.1/class.html#complex-enums
 #[gen_stub_pyclass_complex_enum]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 enum Shape1 {
     Circle { radius: f64 },
     Rectangle { width: f64, height: f64 },
@@ -378,7 +387,7 @@ enum Shape1 {
 /// Example from PyO3 documentation for complex enum
 /// https://pyo3.rs/v0.25.1/class.html#complex-enums
 #[gen_stub_pyclass_complex_enum]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 enum Shape2 {
     #[pyo3(constructor = (radius=1.0))]
     Circle {
@@ -414,7 +423,7 @@ impl Number {
 }
 
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 pub struct DecimalHolder {
     #[pyo3(get)]
     value: Decimal,
@@ -694,7 +703,7 @@ fn test_type_ignore_no_comment_specific() -> i32 {
 
 /// Test class for method type: ignore functionality
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 pub struct TypeIgnoreTest {}
 
 #[gen_stub_pymethods]

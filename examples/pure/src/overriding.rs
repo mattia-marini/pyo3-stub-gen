@@ -52,7 +52,7 @@ pyo3_stub_gen::inventory::submit! {
     }
 }
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 pub struct OverrideType {
     num: isize,
 }

@@ -3,7 +3,7 @@ use pyo3_stub_gen::derive::*;
 
 /// Test class with manually defined PyStubType
 #[gen_stub_pyclass(skip_stub_type)]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 pub struct CustomStubType {
     #[pyo3(get, set)]
     pub value: i32,
@@ -37,7 +37,7 @@ pyo3_stub_gen::impl_py_runtime_type!(CustomStubType);
 
 /// Test class without skip_stub_type (normal behavior)
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 pub struct NormalClass {
     #[pyo3(get, set)]
     pub value: String,
@@ -54,7 +54,7 @@ impl NormalClass {
 
 /// Test enum with skip_stub_type
 #[gen_stub_pyclass_enum(skip_stub_type)]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 pub enum CustomEnum {
     #[pyo3(name = "OPTION_A")]
     OptionA,
@@ -72,7 +72,7 @@ pyo3_stub_gen::impl_py_runtime_type!(CustomEnum);
 
 /// Test complex enum with skip_stub_type
 #[gen_stub_pyclass_complex_enum(skip_stub_type)]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 pub enum CustomComplexEnum {
     #[pyo3(name = "VARIANT_A")]
     VariantA { value: i32 },

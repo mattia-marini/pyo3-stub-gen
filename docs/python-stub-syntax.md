@@ -131,7 +131,7 @@ use pyo3::prelude::*;
 use pyo3_stub_gen::{derive::*, inventory::submit};
 
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 pub struct Calculator {}
 
 #[gen_stub_pymethods]
@@ -472,7 +472,7 @@ submit! {
 **Custom Types:**
 ```rust
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 struct MyClass;
 
 submit! {
@@ -510,7 +510,7 @@ use pyo3_stub_gen::{derive::*, inventory::submit};
 
 /// Demonstrates manual submission of class methods using the `submit!` macro
 #[gen_stub_pyclass] // Use proc-macro for submitting class info
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 pub struct ManualSubmit {}
 
 // No #[gen_stub_pymethods]
@@ -578,7 +578,7 @@ use pyo3_stub_gen::{derive::*, inventory::submit};
 
 /// Example demonstrating manual submission mixed with proc-macro generated method info
 #[gen_stub_pyclass] // Use proc-macro for submitting class info
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 pub struct PartialManualSubmit {}
 
 // Manually submit method info for the `PartialManualSubmit` class.
@@ -651,7 +651,7 @@ impl PartialManualSubmit {
 
 ```rust
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 pub struct DataProcessor;
 
 #[gen_stub_pymethods]

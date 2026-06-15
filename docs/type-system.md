@@ -264,7 +264,7 @@ For a custom PyO3 class:
 use pyo3::prelude::*;
 use pyo3_stub_gen::{PyStubType, TypeInfo};
 
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 struct MyClass;
 
 impl PyStubType for MyClass {
@@ -286,7 +286,7 @@ For a generic wrapper type:
 use pyo3::prelude::*;
 use pyo3_stub_gen::{PyStubType, TypeInfo};
 
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 struct Wrapper<T> {
     value: T,
 }

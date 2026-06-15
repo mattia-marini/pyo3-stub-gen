@@ -69,7 +69,7 @@ Procedural macros analyze Rust code during compilation:
 
 ```rust
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 pub struct Calculator {
     value: f64,
 }
@@ -176,7 +176,7 @@ The `inventory` crate enables distributed metadata registration:
 ### 4. PyO3 Integration
 
 The design tightly integrates with PyO3:
-- Reuses PyO3 attributes (`#[pyclass]`, `#[pyfunction]`, etc.)
+- Reuses PyO3 attributes (`#[pyclass(from_py_object)]`, `#[pyfunction]`, etc.)
 - Respects PyO3 signatures (`#[pyo3(signature = ...)]`)
 - Compatible with all PyO3 features (properties, class attributes, etc.)
 

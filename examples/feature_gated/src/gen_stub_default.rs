@@ -4,7 +4,7 @@ use pyo3::prelude::*;
 // It can be done by `remove_gen_stub` attribute macro.
 #[cfg_attr(feature = "stub-gen", pyo3_stub_gen_derive::gen_stub_pyclass)]
 #[cfg_attr(not(feature = "stub-gen"), pyo3_stub_gen_derive::remove_gen_stub)]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 #[derive(Default)]
 pub struct A {
     #[pyo3(get, set)]

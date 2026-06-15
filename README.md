@@ -106,7 +106,7 @@ use pyo3::prelude::*;
 use pyo3_stub_gen::derive::*;
 
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 struct MyClass;
 
 #[gen_stub_pymethods]
@@ -128,7 +128,7 @@ use pyo3::prelude::*;
 use pyo3_stub_gen::derive::*;
 
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 struct Config {
     #[pyo3(get, set)]
     #[gen_stub(default = Config::default().timeout)]
@@ -391,7 +391,7 @@ use pyo3_stub_gen::derive::*;
     no_default_overload = true  // Don't generate from Rust signature
 )]
 #[pyfunction]
-pub fn func(ob: Bound<PyAny>) -> PyResult<PyObject> {
+pub fn func(ob: Bound<PyAny>) -> PyResult<Py<PyAny>> {
     // Runtime type checking
     todo!()
 }
@@ -404,7 +404,7 @@ use pyo3::prelude::*;
 use pyo3_stub_gen::{derive::*, inventory::submit};
 
 #[gen_stub_pyclass]
-#[pyclass]
+#[pyclass(skip_from_py_object)]
 pub struct Calculator {}
 
 #[gen_stub_pymethods]

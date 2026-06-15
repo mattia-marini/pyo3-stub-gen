@@ -9,14 +9,14 @@
 //! and these information will be gathered by [inventory::iter](https://docs.rs/inventory/latest/inventory/struct.iter.html).
 //! This submodule is responsible for this process.
 //!
-//! - [PyClassInfo] stores information obtained from `#[pyclass]` macro
+//! - [pyclass(from_py_object)Info] stores information obtained from `#[pyclass(from_py_object)]` macro
 //! - [PyMethodsInfo] stores information obtained from `#[pymethods]` macro
 //!
 //! and others are their components.
 //!
 //! Gathering metadata and generating stub file (runtime)
 //! -------------------------------------------------------
-//! Since `#[pyclass]` and `#[pymethods]` definitions are not bundled in a single block,
+//! Since `#[pyclass(from_py_object)]` and `#[pymethods]` definitions are not bundled in a single block,
 //! we have to reconstruct these information corresponding to a Python `class`.
 //! This process is done at runtime in [gen_stub](../../gen_stub) executable.
 //!
@@ -134,7 +134,7 @@ pub struct MethodInfo {
     pub is_overload: bool,
 }
 
-/// Info of getter/setter method decorated with `#[getter]`/`#[setter]` or `#[pyo3(get, set)]` appears in `#[pyclass]`
+/// Info of getter/setter method decorated with `#[getter]`/`#[setter]` or `#[pyo3(get, set)]` appears in `#[pyclass(from_py_object)]`
 #[derive(Debug)]
 pub struct MemberInfo {
     pub name: &'static str,
@@ -165,7 +165,7 @@ pub struct PyMethodsInfo {
 
 inventory::collect!(PyMethodsInfo);
 
-/// Info of `#[pyclass]` with Rust struct
+/// Info of `#[pyclass(from_py_object)]` with Rust struct
 #[derive(Debug)]
 pub struct PyClassInfo {
     // Rust struct type-id
@@ -203,7 +203,7 @@ pub enum VariantForm {
     Struct,
 }
 
-/// Info of a `#[pyclass]` with a single variant of a rich (structured) Rust enum
+/// Info of a `#[pyclass(from_py_object)]` with a single variant of a rich (structured) Rust enum
 #[derive(Debug)]
 pub struct VariantInfo {
     pub pyclass_name: &'static str,
@@ -214,7 +214,7 @@ pub struct VariantInfo {
     pub constr_args: &'static [ParameterInfo],
 }
 
-/// Info of a `#[pyclass]` with a rich (structured) Rust enum
+/// Info of a `#[pyclass(from_py_object)]` with a rich (structured) Rust enum
 #[derive(Debug)]
 pub struct PyComplexEnumInfo {
     // Rust struct type-id
@@ -231,7 +231,7 @@ pub struct PyComplexEnumInfo {
 
 inventory::collect!(PyComplexEnumInfo);
 
-/// Info of `#[pyclass]` with Rust enum
+/// Info of `#[pyclass(from_py_object)]` with Rust enum
 #[derive(Debug)]
 pub struct PyEnumInfo {
     // Rust struct type-id
