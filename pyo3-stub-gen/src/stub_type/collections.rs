@@ -183,6 +183,19 @@ impl<T, State> PyRuntimeType for HashSet<T, State> {
     }
 }
 
+#[cfg(feature = "hashbrown")]
+impl<T: PyStubType, State> PyStubType for hashbrown::HashSet<T, State> {
+    fn type_output() -> TypeInfo {
+        TypeInfo::set_of::<T>()
+    }
+}
+#[cfg(feature = "hashbrown")]
+impl<T, State> PyRuntimeType for hashbrown::HashSet<T, State> {
+    fn runtime_type_object(py: Python<'_>) -> PyResult<Bound<'_, PyAny>> {
+        Ok(py.get_type::<::pyo3::types::PySet>().into_any())
+    }
+}
+
 impl<T: PyStubType> PyStubType for BTreeSet<T> {
     fn type_output() -> TypeInfo {
         TypeInfo::set_of::<T>()
@@ -259,6 +272,17 @@ impl<Key: PyStubType, Value: PyStubType, State> PyStubType for HashMap<Key, Valu
     impl_map_stub_type!();
 }
 impl<Key, Value, State> PyRuntimeType for HashMap<Key, Value, State> {
+    fn runtime_type_object(py: Python<'_>) -> PyResult<Bound<'_, PyAny>> {
+        Ok(py.get_type::<::pyo3::types::PyDict>().into_any())
+    }
+}
+
+#[cfg(feature = "hashbrown")]
+impl<Key: PyStubType, Value: PyStubType, State> PyStubType for hashbrown::HashMap<Key, Value, State> {
+    impl_map_stub_type!();
+}
+#[cfg(feature = "hashbrown")]
+impl<Key, Value, State> PyRuntimeType for hashbrown::HashMap<Key, Value, State> {
     fn runtime_type_object(py: Python<'_>) -> PyResult<Bound<'_, PyAny>> {
         Ok(py.get_type::<::pyo3::types::PyDict>().into_any())
     }

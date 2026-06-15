@@ -30,6 +30,7 @@ serde.workspace = true
 serde_json.workspace = true
 time.workspace = true
 toml.workspace = true
+hashbrown = { workspace = true, optional = true }
 
 [dependencies.pyo3-stub-gen-derive]
 path = "../pyo3-stub-gen-derive"
@@ -42,9 +43,10 @@ test-case.workspace = true
 workspace = true
 
 [features]
-default = ["either", "infer_signature", "numpy", "ordered-float"]
+default = ["either", "infer_signature", "numpy", "ordered-float", "hashbrown"]
 either = ["dep:either"]
 infer_signature = []
 numpy = ["dep:numpy"]
 ordered-float = ["dep:ordered-float"]
 rust_decimal = ["dep:rust_decimal"]
+hashbrown = ["dep:hashbrown"]
